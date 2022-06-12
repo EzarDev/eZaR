@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  bot:
+    container_name: ezar
+    env_file: .env
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
