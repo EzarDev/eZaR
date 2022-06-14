@@ -7,7 +7,7 @@ class Ezar(Bot):
     def __init__(self, *, beta: bool = True):
         self.beta = beta
         super().__init__(
-            "!",
+            "$",
             None,
             case_insensitive=True,
             owner_ids=Config.owner_ids,
@@ -19,6 +19,6 @@ class Ezar(Bot):
             intents=Intents(
                 message_content=True, guilds=True, members=True, messages=True
             ),
-            activity=Activity(name="Stuff", type=ActivityType.custom),
+            activity=Activity(name="Stuff", type=ActivityType.watching),
             allowed_mentions=AllowedMentions(everyone=False, users=True, roles=False),
         )
