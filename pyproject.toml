@@ -11,6 +11,7 @@ python-dotenv = "^0.20.0"
 motor = "^3.0.0"
 dnspython = "^2.2.1"
 disnake = {git = "https://github.com/DisnakeDev/disnake"}
+disnake-jishaku = "^2.6.5"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"

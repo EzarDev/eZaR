@@ -29,7 +29,7 @@ class Config:
     main_token = environ.get("MAIN_TOKEN")
     beta_token = environ.get("BETA_TOKEN")
     mongo_uri = environ.get("MONGO_URI")
-    owner_ids = environ["OWNER_IDS"]
+    owner_ids = [int(id_) for id_ in environ.get("OWNER_IDS").split(", ")]
     test_guilds = int(environ["TEST_GUILDS"])
 
 
