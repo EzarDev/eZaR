@@ -1,6 +1,6 @@
 # eZaR
 
-#### A very easy and helpful moderation, server-help, and economy Discord bot.
+#### A very easy and helpful moderation, server-utility, and economy Discord bot.
 
 [![eZaR Discord guild](https://img.shields.io/discord/906815360492253205?color=dark%20green&logo=discord)](https://ezar.shamdev.xyz/discord)
 [![eZaR Supported Python versions](https://img.shields.io/badge/Python-3.10-informational?logo=python)](https://ezar.shamdev.xyz)
@@ -18,7 +18,7 @@
 
 - A Lot of useless things no one asked for (images, polls, tags, information)
 
-# Self-hosting eZaR
+## Self-hosting eZaR
 
 ❗❗ **No support will be offered for self-hosting the bot.**
 
@@ -42,9 +42,9 @@
    poetry install
    poetry run python3 -m ezar
    ```
- **HOWEVER**, if you would like to use Docker, refer to the commands you can run from [This PR](https://github.com/eZaR-Bot/3Z4R/pulls/4)
+ **HOWEVER**, if you would like to use Docker, refer to the commands you can run from [This PR](https://github.com/eZaR-Bot/3Z4R/pull/4)
 
-# Contributing
+## Contributing
 
 Thank you for wanting to contribute to eZaR! We appreciate it a ton! In case you don't know how to, here are some steps to help you:
 
@@ -57,7 +57,7 @@ Thank you for wanting to contribute to eZaR! We appreciate it a ton! In case you
 4. Make a Pull Request using [Github CLI](https://cli.github.com) or Github itself
 5. All done! Now we can review your code, maybe suggest some changes, and merge it!
 
-# Main Contributors
+## Main Contributors
 [Sham](https://github.com/toolifelesstocode) - Maintainer & Founder
 
 [Alexy](https://github.com/ItsNotAlexy) - Website Developer, Co-Founder
@@ -71,4 +71,4 @@ Thank you for wanting to contribute to eZaR! We appreciate it a ton! In case you
 
 [Discord Support Guild](https://ezar.shamdev.xyz/discord)
 
-Donations - [Payapl](https://paypal.com/realShamlol) or [Patreon](https://patreon.com/ezarbot)
+Donations - [PayPal](https://paypal.me/realShamlol) or [Patreon](https://patreon.com/ezarbot)
