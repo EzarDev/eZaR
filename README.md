@@ -6,7 +6,7 @@
 [![eZaR Supported Python versions](https://img.shields.io/badge/Python-3.10-informational?logo=python)](https://ezar.shamdev.xyz)
 [![eZaR GitHub checks](https://img.shields.io/github/checks-status/eZaR-Bot/3Z4R/main?logo=github)](https://github.com/eZaR-Bot/3Z4R)
 
-# Features
+## Features
 
 - Private Support ("Ticketing") System
 
@@ -64,7 +64,7 @@ Thank you for wanting to contribute to eZaR! We appreciate it a ton! In case you
 
 [Oliver](https://github.com/ooliver1) - Code & PR Code ~~criticizer~~ Reviewer
 
-# Links
+## Links
 [Website](https://ezar.shamdev.xyz)
 
 [Invite](https://ezar.shamdev.xyz/invite)
