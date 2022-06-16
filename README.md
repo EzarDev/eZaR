@@ -42,7 +42,7 @@
    poetry install
    poetry run python3 -m ezar
    ```
- **HOWEVER**, if you would like to use Docker, refer to the commands you can run from [This PR](https://github.com/eZaR-Bot/3Z4R/pull/4)
+ **HOWEVER**, if you would like to use Docker, refer to the commands you can run from [this Pull Request]([https://github.com/eZaR-Bot/3Z4R/pull/4](https://github.com/eZaR-Bot/3Z4R/pull/4#issue-1268645480))
 
 ## Contributing
 
