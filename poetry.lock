@@ -124,7 +124,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
 name = "disnake"
-version = "2.6.0a4253+gf4f85821"
+version = "2.6.0a4258+g72d8e478"
 description = "A Python wrapper for the Discord API"
 category = "main"
 optional = false
@@ -144,7 +144,7 @@ voice = ["PyNaCl (>=1.3.0,<1.5)"]
 type = "git"
 url = "https://github.com/DisnakeDev/disnake"
 reference = "master"
-resolved_reference = "f4f85821052942f36ca6d1b10220f00525956dfe"
+resolved_reference = "72d8e478cc16a89f40a6ee1bdfe72ae36ec4faf1"
 
 [[package]]
 name = "disnake-jishaku"
@@ -225,6 +225,20 @@ astunparse = ">=1.6.3,<2.0.0"
 
 [package.extras]
 test = ["pytest", "pytest-cov"]
+
+[[package]]
+name = "isort"
+version = "5.10.1"
+description = "A Python utility / library to sort Python imports."
+category = "dev"
+optional = false
+python-versions = ">=3.6.1,<4.0"
+
+[package.extras]
+pipfile_deprecated_finder = ["pipreqs", "requirementslib"]
+requirements_deprecated_finder = ["pipreqs", "pip-api"]
+colors = ["colorama (>=0.4.3,<0.5.0)"]
+plugins = ["setuptools"]
 
 [[package]]
 name = "mccabe"
@@ -373,7 +387,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "537c52cae30c9e1063805b58ded67a687c4058f4e136ef46a7f2f58955382262"
+content-hash = "25161ef889f37701269d2580ca6765c061ce5ab301249535fd9a896f86f7d4a4"
 
 [metadata.files]
 aiohttp = [
@@ -587,6 +601,10 @@ idna = [
 import-expression = [
     {file = "import_expression-1.1.4-py3-none-any.whl", hash = "sha256:292099910a4dcc65ba562377cd2265487ba573dd63d73bdee5deec36ca49555b"},
     {file = "import_expression-1.1.4.tar.gz", hash = "sha256:06086a6ab3bfa528b1c478e633d6adf2b3a990e31440f6401b0f3ea12b0659a9"},
+]
+isort = [
+    {file = "isort-5.10.1-py3-none-any.whl", hash = "sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7"},
+    {file = "isort-5.10.1.tar.gz", hash = "sha256:e8443a5e7a020e9d7f97f1d7d9cd17c88bcb3bc7e218bf9cf5095fe550be2951"},
 ]
 mccabe = [
     {file = "mccabe-0.6.1-py2.py3-none-any.whl", hash = "sha256:ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42"},
