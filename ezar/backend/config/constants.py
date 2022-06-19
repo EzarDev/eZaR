@@ -36,7 +36,7 @@ class Config:
 
 
 class Colors:
-    purple = 0x8704C8
+    purple = 0x8449ca
     green = 0x27A027
     white = 0xFFFFFF
     grey = 0x5B5959
