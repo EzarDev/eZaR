@@ -1,11 +1,15 @@
 from logging import getLogger
+
 from disnake.ext.commands import Cog
+
 from ezar import Ezar
 
 log = getLogger(__name__)
 
 
 class Listeners(Cog):
+    """Listeners ('events') go here"""
+
     def __init__(self, bot: Ezar):
         self.bot = bot
 
@@ -15,4 +19,5 @@ class Listeners(Cog):
 
 
 def setup(bot: Ezar):
+    """Loading the Listeners cog"""
     bot.add_cog(Listeners(bot))

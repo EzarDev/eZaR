@@ -1,4 +1,5 @@
 from os import environ
+
 from disnake import Permissions
 from dotenv import load_dotenv
 
@@ -23,6 +24,7 @@ class Bot:
         manage_messages=True,
         manage_roles=True,
     )
+    support_inv_url = "2Usu8E5KK4"
 
 
 class Config:
