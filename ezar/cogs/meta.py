@@ -38,7 +38,7 @@ class Meta(Cog):
             )
         )
         stats_embed.set_author(name="Statistics", icon_url=self.bot.user.display_avatar)
-        return await inter.send(embed=stats_embed)
+        return await inter.response.send_message(embed=stats_embed)
 
     @ezar.sub_command()
     async def ping(self, inter: CommandInter):
@@ -48,12 +48,12 @@ class Meta(Cog):
             description=f"Bot Latency: {round(self.bot.latency * 1000)}ms",
             success=True,
         )
-        return await inter.send(embed=ping_embed)
+        return await inter.response.send_message(embed=ping_embed)
 
     @ezar.sub_command()
     async def support(self, inter: CommandInter):
         """Get an invite to the support server."""
-        return await inter.send(
+        return await inter.response.send_message(
             f"Have any issues or queries? Join the support server: https://discord.gg/{Bot.support_inv_url}",
             ephemeral=True,
         )
@@ -80,7 +80,7 @@ class Meta(Cog):
         """
             ),
         )
-        return await inter.send(embed=creds_embed)
+        return await inter.response.send_message(embed=creds_embed)
 
     @ezar.sub_command()
     async def invite(
