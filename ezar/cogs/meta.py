@@ -41,12 +41,12 @@ class Meta(Cog):
         self.bot = bot
 
     @slash_command()
-    async def ezar(self, inter: CommandInter):
+    async def ezar(self, itr: CommandInter):
         """`ezar` Parent command"""
         ...
 
     @ezar.sub_command()
-    async def stats(self, inter: CommandInter):
+    async def stats(self, itr: CommandInter):
         """Statistics on the current build."""
         stats_embed = Embeb(
             description=STATS_DESC.format(
@@ -56,43 +56,40 @@ class Meta(Cog):
                 dis_rl=version_info.releaselevel,
                 guild_count=len(self.bot.guilds),
                 user_count=len(self.bot.users),
-                channel_count=len([g.channels for g in self.bot.guilds])
+                channel_count=len([g.channels for g in self.bot.guilds]),
             )
         )
         stats_embed.set_author(name="Statistics", icon_url=self.bot.user.display_avatar)
-        return await inter.response.send_message(embed=stats_embed)
+        return await itr.response.send_message(embed=stats_embed)
 
     @ezar.sub_command()
-    async def ping(self, inter: CommandInter):
+    async def ping(self, itr: CommandInter):
         """Shows how long the response time is."""
         ping_embed = Embeb(
             title="🏓 Pong!",
             description=f"Bot Latency: {round(self.bot.latency * 1000)}ms",
             success=True,
         )
-        return await inter.response.send_message(embed=ping_embed)
+        return await itr.response.send_message(embed=ping_embed)
 
     @ezar.sub_command()
-    async def support(self, inter: CommandInter):
+    async def support(self, itr: CommandInter):
         """Get an invite to the support server."""
-        return await inter.response.send_message(
+        return await itr.response.send_message(
             f"Have any issues or queries? Join the support server: https://discord.gg/{Bot.support_inv_url}",
             ephemeral=True,
         )
 
     @ezar.sub_command()
-    async def credits(self, inter: CommandInter):
+    async def credits(self, itr: CommandInter):
         """Everything/person who made eZaR possible."""
-        creds_embed = Embeb(
-            title="Credits",
-            description=CREDITS_DESC
-        )
-        return await inter.response.send_message(embed=creds_embed)
+        creds_embed = Embeb(title="Credits", description=CREDITS_DESC)
+        return await itr.response.send_message(embed=creds_embed)
 
     @ezar.sub_command()
     async def invite(
         self,
-        inter: CommandInter,
+        itr: CommandInter,
         server_id: str = None,
         permissions: Range[0, Permissions.all().value] = None,
         hidden: bool = True,
@@ -123,8 +120,8 @@ class Meta(Cog):
             permissions=perms,
             guild=Object(server_id) if server_id is not None else MISSING,
         )
-        await inter.response.defer(ephemeral=hidden)
-        return await inter.edit_original_message(f"Here is your invite URL: {inv_url}")
+        await itr.response.defer(ephemeral=hidden)
+        return await itr.edit_original_message(f"Here is your invite URL: {inv_url}")
 
 
 def setup(bot: Ezar):
