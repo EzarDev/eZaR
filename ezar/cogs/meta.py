@@ -6,7 +6,7 @@ from disnake.ext.commands import Cog, Range, slash_command
 from disnake.utils import MISSING, oauth_url
 
 from ezar import Ezar
-from ezar.backend.config.constants import Bot
+from ezar.backend.config import Bot
 from ezar.utils.embed import Embeb
 
 
