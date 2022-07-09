@@ -3,11 +3,37 @@ from platform import python_version
 
 from disnake import CommandInter, Object, Permissions, __version__, version_info
 from disnake.ext.commands import Cog, Range, slash_command
+from disnake.ui import Button
 from disnake.utils import MISSING, oauth_url
 
 from ezar import Ezar
-from ezar.backend.config.constants import Bot
+from ezar.backend.config import Bot
 from ezar.utils.embed import Embeb
+
+STATS_STR = """
+Version: {version}
+Python Version: `{py_version}`
+Disnake Version: `{dis_version} {dis_rl}`
+
+Servers: `{guild_count}`
+Users: `{user_count}`
+Channels: `{channel_count}`
+"""
+
+CREDITS_DESC = """
+**Libraries:**
+Disnake - https://disnake.dev | https://discord.gg/disnake
+Python - https://python.org
+
+**Frontend** ~~copy~~ **insipiration:**
+Monty Python - https://github.com/onerandomusername/monty-python
+
+**Contributors:**
+[toolifelesstocode](https://github.com/toolifelesstocode)
+[ooliver1](https://github.com/ooliver1)
+[shruuub](https://github.com/shruuub)
+[EnokiUN](https://github.com/EnokiUN)
+"""
 
 
 class Meta(Cog):
@@ -17,75 +43,58 @@ class Meta(Cog):
         self.bot = bot
 
     @slash_command()
-    async def ezar(self, inter: CommandInter):
+    async def ezar(self, itr: CommandInter):
         """`ezar` Parent command"""
         ...
 
     @ezar.sub_command()
-    async def stats(self, inter: CommandInter):
+    async def stats(self, itr: CommandInter):
         """Statistics on the current build."""
         stats_embed = Embeb(
-            description=cleandoc(
-                f"""
-        Version: `{Bot.version}`
-        Python Version: `{python_version()}`
-        Disnake Version: `{__version__} {version_info.releaselevel}`
-
-        Servers: `{len(self.bot.guilds)}`
-        Users: `{len(self.bot.users)}`
-        Channels: `{len([c for c in self.bot.get_all_channels()])}`
-        """
+            description=STATS_STR.format(
+                version=Bot.version,
+                py_version=python_version(),
+                dis_version=__version__,
+                dis_rl=version_info.releaselevel,
+                guild_count=len(self.bot.guilds),
+                user_count=len(self.bot.users),
+                channel_count=len([c for c in self.bot.get_all_channels()]),
             )
         )
         stats_embed.set_author(name="Statistics", icon_url=self.bot.user.display_avatar)
-        return await inter.response.send_message(embed=stats_embed)
+        return await itr.response.send_message(embed=stats_embed)
 
     @ezar.sub_command()
-    async def ping(self, inter: CommandInter):
+    async def ping(self, itr: CommandInter):
         """Shows how long the response time is."""
         ping_embed = Embeb(
             title="🏓 Pong!",
             description=f"Bot Latency: {round(self.bot.latency * 1000)}ms",
             success=True,
         )
-        return await inter.response.send_message(embed=ping_embed)
+        return await itr.response.send_message(embed=ping_embed)
 
     @ezar.sub_command()
-    async def support(self, inter: CommandInter):
+    async def support(self, itr: CommandInter):
         """Get an invite to the support server."""
-        return await inter.response.send_message(
+        return await itr.response.send_message(
             f"Have any issues or queries? Join the support server: https://discord.gg/{Bot.support_inv_url}",
             ephemeral=True,
         )
 
     @ezar.sub_command()
-    async def credits(self, inter: CommandInter):
+    async def credits(self, itr: CommandInter):
         """Everything/person who made eZaR possible."""
         creds_embed = Embeb(
             title="Credits",
-            description=cleandoc(
-                """
-        **Libraries:**
-        Disnake - https://disnake.dev | https://discord.gg/disnake
-        Python - https://python.org
-
-        **Frontend** ~~copy~~ **insipiration:**
-        Monty Python - https://github.com/onerandomusername/monty-python
-
-        **Contributors:**
-        [toolifelesstocode](https://github.com/toolifelesstocode)
-        [ooliver1](https://github.com/ooliver1)
-        [shruuub](https://github.com/shruuub)
-        [EnokiUN](https://github.com/EnokiUN)
-        """
-            ),
+            description=CREDITS_DESC,
         )
-        return await inter.response.send_message(embed=creds_embed)
+        return await itr.response.send_message(embed=creds_embed)
 
     @ezar.sub_command()
     async def invite(
         self,
-        inter: CommandInter,
+        itr: CommandInter,
         server_id: str = None,
         permissions: Range[0, Permissions.all().value] = None,
         hidden: bool = True,
@@ -116,8 +125,11 @@ class Meta(Cog):
             permissions=perms,
             guild=Object(server_id) if server_id is not None else MISSING,
         )
-        await inter.response.defer(ephemeral=hidden)
-        return await inter.edit_original_message(f"Here is your invite URL: {inv_url}")
+        await itr.response.defer(ephemeral=hidden)
+        return await itr.edit_original_message(
+            "Here is an invite link!",
+            components=[Button(label="Invite Link", url=inv_url)],
+        )
 
 
 def setup(bot: Ezar):
