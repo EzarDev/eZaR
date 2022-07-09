@@ -1,4 +1,3 @@
-from inspect import cleandoc
 from platform import python_version
 
 from disnake import CommandInter, Object, Permissions, __version__, version_info
@@ -8,6 +7,31 @@ from disnake.utils import MISSING, oauth_url
 from ezar import Ezar
 from ezar.backend.config import Bot
 from ezar.utils.embed import Embeb
+
+CREDITS_DESC = """
+**Libraries:**
+Disnake - https://disnake.dev | https://discord.gg/disnake
+Python - https://python.org
+
+**Frontend** ~~copy~~ **insipiration:**
+Monty Python - https://github.com/onerandomusername/monty-python
+
+**Contributors:**
+[toolifelesstocode](https://github.com/toolifelesstocode)
+[ooliver1](https://github.com/ooliver1)
+[shruuub](https://github.com/shruuub)
+[EnokiUN](https://github.com/EnokiUN)
+"""
+
+STATS_DESC = """
+Version: `{Bot_version}`
+Python Version: `{python_version}`
+Disnake Version: `{dis_version} {dis_rl}`
+
+Servers: `{guild_count}`
+Users: `{user_count}`
+Channels: `{channel_count}`
+"""
 
 
 class Meta(Cog):
@@ -25,16 +49,14 @@ class Meta(Cog):
     async def stats(self, inter: CommandInter):
         """Statistics on the current build."""
         stats_embed = Embeb(
-            description=cleandoc(
-                f"""
-        Version: `{Bot.version}`
-        Python Version: `{python_version()}`
-        Disnake Version: `{__version__} {version_info.releaselevel}`
-
-        Servers: `{len(self.bot.guilds)}`
-        Users: `{len(self.bot.users)}`
-        Channels: `{len([c for c in self.bot.get_all_channels()])}`
-        """
+            description=STATS_DESC.format(
+                bot_version=Bot.version,
+                python_version=python_version(),
+                dis_version=__version__,
+                dis_rl=version_info.releaselevel,
+                guild_count=len(self.bot.guilds),
+                user_count=len(self.bot.users),
+                channel_count=len([g.channels for g in self.bot.guilds])
             )
         )
         stats_embed.set_author(name="Statistics", icon_url=self.bot.user.display_avatar)
@@ -63,22 +85,7 @@ class Meta(Cog):
         """Everything/person who made eZaR possible."""
         creds_embed = Embeb(
             title="Credits",
-            description=cleandoc(
-                """
-        **Libraries:**
-        Disnake - https://disnake.dev | https://discord.gg/disnake
-        Python - https://python.org
-
-        **Frontend** ~~copy~~ **insipiration:**
-        Monty Python - https://github.com/onerandomusername/monty-python
-
-        **Contributors:**
-        [toolifelesstocode](https://github.com/toolifelesstocode)
-        [ooliver1](https://github.com/ooliver1)
-        [shruuub](https://github.com/shruuub)
-        [EnokiUN](https://github.com/EnokiUN)
-        """
-            ),
+            description=CREDITS_DESC
         )
         return await inter.response.send_message(embed=creds_embed)
 
