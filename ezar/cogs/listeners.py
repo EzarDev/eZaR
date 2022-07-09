@@ -30,7 +30,7 @@ class Listeners(Cog):
             "An error occurred while executing this command. ",
             "If you do not understand this error or think it is an internal error, ",
             f"please report it in our [support server](discord.gg/{Bot.support_inv_url}).\n\n",
-            f"```py\n{exc}\n```"
+            f"```py\n{exc}\n```",
         )
         error_embed = Embeb(description=desc, failure=True)
 

@@ -1,12 +1,10 @@
 from os import environ
 
 from disnake import Permissions
-from motor.core import (
-    Collection as MotorCollection,
-    Database as MotorDatabase
-)
-from motor.motor_asyncio import AsyncIOMotorClient
 from dotenv import load_dotenv
+from motor.core import Collection as MotorCollection
+from motor.core import Database as MotorDatabase
+from motor.motor_asyncio import AsyncIOMotorClient
 
 load_dotenv()
 
