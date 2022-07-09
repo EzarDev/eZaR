@@ -3,7 +3,7 @@ from os import listdir
 
 from disnake.ext.commands import ExtensionError
 
-from ezar.backend.config.constants import Config
+from ezar.backend.config import Config
 from ezar.utils.ezar import Ezar
 
 bot = Ezar()

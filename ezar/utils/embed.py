@@ -2,7 +2,7 @@ import datetime
 
 from disnake import Colour, Embed
 
-from ezar.backend.config.constants import Colors
+from ezar.backend.config import Colors
 
 
 class Embeb(Embed):
