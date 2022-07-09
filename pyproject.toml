@@ -2,7 +2,7 @@
 name = "ezar"
 version = "3.1.0"
 description = "A very helpful Moderation and Server Help bot, that has Economy for no damn reason."
-authors = ["Sham <thesham@proton.me>"]
+authors = ["Noelle <noelle_km@proton.me>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
@@ -10,7 +10,7 @@ python = "^3.8"
 python-dotenv = "^0.20.0"
 motor = "^3.0.0"
 dnspython = "^2.2.1"
-disnake = {git = "https://github.com/DisnakeDev/disnake.git"}
+disnake = {git = "https://github.com/DisnakeDev/disnake"}
 disnake-jishaku = "^2.6.5"
 
 [tool.poetry.dev-dependencies]
