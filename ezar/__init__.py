@@ -1,9 +1,8 @@
-from . import backend, cogs, utils
+from . import backend, utils
 from .utils.ezar import Ezar
 
 __all__ = (
     "Ezar",
     "backend",
     "utils",
-    "cogs",
 )
