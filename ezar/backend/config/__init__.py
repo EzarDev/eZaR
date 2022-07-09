@@ -8,13 +8,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 
 load_dotenv()
 
-__all__ = (
-    "Bot",
-    "Config",
-    "Colors",
-    "Emojis",
-    "Database",
-)
+__all__ = ("Bot", "Config", "Colors", "Emojis", "Database",)
 
 
 class Bot:
