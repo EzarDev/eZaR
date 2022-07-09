@@ -1,7 +1,7 @@
 from disnake import Activity, ActivityType, AllowedMentions, Intents
 from disnake.ext.commands import Bot
 
-from ezar.backend.config.constants import Config
+from ezar.backend.config import Config
 
 
 class Ezar(Bot):
