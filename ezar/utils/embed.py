@@ -1,4 +1,5 @@
 import datetime
+from typing import Optional
 
 from disnake import Colour, Embed
 
@@ -11,11 +12,11 @@ class Embeb(Embed):
     def __init__(
         self,
         *,
-        title: str = None,
-        description: str = None,
-        url: str = None,
-        color: int | Colour = None,
-        timestamp: datetime.datetime = None,
+        title: Optional[str] = None,
+        description: Optional[str] = None,
+        url: Optional[str] = None,
+        color: Optional[int | Colour] = None,
+        timestamp: Optional[datetime.datetime] = None,
         success: bool = False,
         failure: bool = False,
     ):
