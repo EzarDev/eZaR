@@ -1,4 +1,5 @@
 from logging import getLogger
+from typing import Union
 
 from disnake import CommandInter
 from disnake.ext.commands import Cog, Context, NotOwner
@@ -33,7 +34,7 @@ class Listeners(Cog):
 
     @Cog.listener("on_slash_command_error")
     @Cog.listener("on_command_error")
-    async def command_error(self, itr: CommandInter, exc: Exception):
+    async def command_error(self, itr: Union[CommandInter, Context], exc: Exception):
         if isinstance(exc, NotOwner):
             return
 
