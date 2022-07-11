@@ -10,6 +10,17 @@ from ezar.utils.embed import Embeb
 log = getLogger(__name__)
 
 
+error_description = """
+An error occurred while executing this command. 
+If you do not understand this error or think it is an internal error,
+please report it in our [support server](discord.gg/{invite}).
+
+```py
+{exc}
+```
+"""
+
+
 class Listeners(Cog):
     """Listeners ('events') go here"""
 
@@ -26,12 +37,7 @@ class Listeners(Cog):
         if isinstance(exc, NotOwner):
             return
 
-        desc = (
-            "An error occurred while executing this command. ",
-            "If you do not understand this error or think it is an internal error, ",
-            f"please report it in our [support server](discord.gg/{Bot.support_inv_url}).\n\n",
-            f"```py\n{exc}\n```",
-        )
+        desc = error_description.format(invite=Bot.support_inv_url, exc=exc)
         error_embed = Embeb(description=desc, failure=True)
 
         if isinstance(itr, Context):
