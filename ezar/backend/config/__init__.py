@@ -42,10 +42,10 @@ class Config:
     main_token = environ.get("MAIN_TOKEN")
     beta_token = environ.get("BETA_TOKEN")
     mongo_uri = environ.get("MONGO_URI")
-    owner_ids = [int(id_) for id_ in environ.get("OWNER_IDS").split(", ")]
+    owner_ids = [int(id_) for id_ in environ["OWNER_IDS"].split(", ")]
     test_guilds = int(environ["TEST_GUILDS"])
-    blist_log_channel_id = int(environ.get("LIST_POST_CHANNEL_ID"))
-    bot_logs_channel_id = int(environ.get("BOT_LOGS_CHANNEL_ID"))
+    blist_log_channel_id = int(environ["LIST_POST_CHANNEL_ID"])
+    bot_logs_channel_id = int(environ["BOT_LOGS_CHANNEL_ID"])
 
 
 class Colors:
