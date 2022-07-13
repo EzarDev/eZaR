@@ -1,4 +1,5 @@
 from platform import python_version
+from typing import Optional
 
 from disnake import CommandInter, Object, Permissions, __version__, version_info
 from disnake.ext.commands import Cog, Range, slash_command
@@ -90,8 +91,8 @@ class Meta(Cog):
     async def invite(
         self,
         itr: CommandInter,
-        server_id: str = None,
-        permissions: Range[0, Permissions.all().value] = None,
+        server_id: Optional[str] = None,
+        permissions: Optional[Range[0, Permissions.all().value]] = None,
         hidden: bool = True,
     ):
         """Get a bot invite URL.
