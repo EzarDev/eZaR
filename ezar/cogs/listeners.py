@@ -42,10 +42,12 @@ class Listeners(Cog):
         error_embed = Embeb(description=desc, failure=True)
 
         if isinstance(itr, Context):
-            log.error(f"Error with command {itr.command.qualified_name}: {exc}")
+            command_name = itr.command.qualified_name if itr.command else "None"
+            log.error(f"Error with command {command_name}: {exc}")
             return await itr.reply(embed=error_embed)
         else:
-            log.error(f"Error with slash command {itr.command.qualified_name}: {exc}")
+            command_name = itr.application_command.qualified_name
+            log.error(f"Error with slash command {command_name}: {exc}")
             return await itr.send(embed=error_embed)
 
 
