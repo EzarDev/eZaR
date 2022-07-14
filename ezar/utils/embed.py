@@ -1,5 +1,5 @@
 import datetime
-from typing import Optional
+from typing import Optional, Union
 
 from disnake import Colour, Embed
 
@@ -15,7 +15,7 @@ class Embeb(Embed):
         title: Optional[str] = None,
         description: Optional[str] = None,
         url: Optional[str] = None,
-        color: Optional[int | Colour] = None,
+        color: Optional[Union[Colour, int]] = None,
         timestamp: Optional[datetime.datetime] = None,
         success: bool = False,
         failure: bool = False,
@@ -31,7 +31,9 @@ class Embeb(Embed):
         self.failure = failure
 
         self.color = (
-            Colors.purple
+            color
+            if color
+            else Colors.purple
             if not self.success and self.color is None
             else Colors.green
             if not self.failure and self.color is None
