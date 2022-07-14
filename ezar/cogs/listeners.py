@@ -12,7 +12,7 @@ log = getLogger(__name__)
 
 
 error_description = """
-An error occurred while executing this command. 
+An error occurred while executing this command.
 If you do not understand this error or think it is an internal error,
 please report it in our [support server](discord.gg/{invite}).
 
