@@ -6,7 +6,7 @@
 [![eZaR Supported Python versions](https://img.shields.io/badge/Python-3.10-informational?logo=python)](https://ezar.shamdev.xyz)
 [![eZaR GitHub checks](https://img.shields.io/github/checks-status/eZaR-Bot/3Z4R/main?logo=github)](https://github.com/eZaR-Bot/3Z4R)
 
-## Features
+## ✨ Features
 
 - Private Support ("Ticketing") System
 
@@ -18,18 +18,18 @@
 
 - A Lot of useless things no one asked for (images, polls, tags, information)
 
-## Self-hosting eZaR
+## ⚠ Self-hosting eZaR
 
 ❗❗ **No support will be offered for self-hosting the bot.**
 
-### Prerequisites
+### 📝 Prerequisites
 
 - [Python 3.8/9/10](https://python.org/downloads)
 - [Poetry](https://python-poetry.org)
 - [Docker (Optional)](https://docker.com)
 - A [MongoDB](https://mongodb.com) Cluster
 
-### Steps
+### 🔧 Steps
 
 1. Clone this repository by running:
 
@@ -44,7 +44,7 @@
    ```
  **HOWEVER**, if you would like to use Docker, refer to the commands you can run from [this pull request](https://github.com/eZaR-Bot/3Z4R/pull/4#issue-1268645480)
 
-## Contributing
+## ⚙ Contributing
 
 Thank you for wanting to contribute to eZaR! We appreciate it a ton! In case you don't know how to, here are some steps to help you:
 
@@ -57,14 +57,15 @@ Thank you for wanting to contribute to eZaR! We appreciate it a ton! In case you
 4. Make a Pull Request using [Github CLI](https://cli.github.com) or Github itself
 5. All done! Now we can review your code, maybe suggest some changes, and merge it!
 
-## Main Contributors
+## 💻 Main Contributors
+
 [Sham](https://github.com/toolifelesstocode) - Maintainer & Founder
 
 [Alexy](https://github.com/ItsNotAlexy) - Website Developer, Co-Founder
 
 [Oliver](https://github.com/ooliver1) - Code & PR Code ~~criticizer~~ Reviewer
 
-## Links
+## 🔗 Links
 [Website](https://ezar.shamdev.xyz)
 
 [Invite](https://ezar.shamdev.xyz/invite)
