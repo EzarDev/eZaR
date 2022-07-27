@@ -1,4 +1,4 @@
-from disnake import Activity, ActivityType, AllowedMentions, Intents
+from disnake import Activity, ActivityType, AllowedMentions, Intents, MemberCacheFlags
 from disnake.ext.commands import Bot
 
 from ezar.backend.config import Config
@@ -22,4 +22,5 @@ class Ezar(Bot):
             ),
             activity=Activity(name="Stuff", type=ActivityType.watching),
             allowed_mentions=AllowedMentions(everyone=False, users=True, roles=False),
+            member_cache_flags=MemberCacheFlags(voice=False)
         )
