@@ -88,12 +88,7 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
         if len(guild.roles) > 25:
             roles = "Too many roles to display."
         else:
-            roles = ", ".join(
-                sorted(
-                    [r.mention for r in guild.roles if r.id != guild.id],
-                    key=lambda r: r.position,
-                )
-            )
+            roles = ", ".join([r.mention for r in guild.roles if r.id != guild.id])
         vanity = await guild.vanity_invite(use_cached=True)
         info_embed = Embeb(
             description=guild.description,
@@ -128,6 +123,56 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
             name=f"Roles [{len(guild.roles)}]", value=roles, inline=False
         )
         await itr.response.send_message(embed=info_embed)
+
+    @info.sub_command("user")
+    async def info_user(self, itr: CommandInter, user: User = None):
+        """Returns information about a user.
+
+        Parameters
+        ----------
+        user: The user to get information about."""
+        user_embed = Embeb()
+        if user is None:
+            user: Member = itr.user
+
+        flags = ", ".join([f[0] for f in user.public_flags if f[1]])
+
+        if isinstance(user, Member):
+            user_embed.colour = user.colour
+            user_embed.set_author(
+                name=f"{user} ({user.id})", icon_url=user.display_avatar.url
+            )
+            user_embed.set_thumbnail(user.display_avatar.url)
+            user_embed.set_image(user.banner.url if user.banner else None)
+            user_embed.add_field(name="Created", value=utils.format_dt(user.created_at))
+            user_embed.add_field(name="Joined", value=utils.format_dt(user.joined_at))
+            user_embed.add_field(name="Bot Account", value="Yes" if user.bot else "No")
+            user_embed.add_field(
+                name="Flags",
+                value=flags if user.public_flags._from_value(0) else "No Flags",
+            )
+            user_embed.add_field(
+                name="Roles",
+                value=", ".join(
+                    [r.mention for r in user.roles if r.id != itr.guild.id]
+                ),
+                inline=False,
+            )
+        elif isinstance(user, User):
+            user_embed.set_author(
+                name=f"{user} ({user.id})", icon_url=user.display_avatar.url
+            )
+            user_embed.set_thumbnail(user.display_avatar.url)
+            user_embed.set_image(user.banner.url if user.banner else None)
+            user_embed.add_field(name="Created", value=utils.format_dt(user.created_at))
+            user_embed.add_field(name="Bot Account", value="Yes" if user.bot else "No")
+            user_embed.add_field(
+                name="Flags",
+                value=flags if not user.public_flags._from_value(0) else "No Flags",
+                inline=False,
+            )
+
+        return await itr.response.send_message(embed=user_embed)
 
 
 def setup(bot: Ezar):
