@@ -1,7 +1,7 @@
 from inspect import cleandoc
 from typing import Literal, Optional
 
-from disnake import CommandInter, Member, User, utils
+from disnake import CommandInter, Member, Permissions, Role, User, utils
 from disnake.ext.commands import Cog, slash_command
 
 from ezar import Ezar
@@ -173,6 +173,37 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
             )
 
         return await itr.response.send_message(embed=user_embed)
+
+    @info.sub_command("role")
+    async def info_role(self, itr: CommandInter, role: Role):
+        """Returns information about a role.
+
+        Parameters
+        ----------
+        role: The role to get information about."""
+        role_embed = Embeb()
+        role_icon = role.icon.url if role.icon else None
+        _role_perms = role.permissions & Permissions.advanced()
+        role_perms = ", ".join([p[0] for p in _role_perms if p[1]])
+        role_embed.set_author(name=f"{role} ({role.id})", icon_url=role_icon)
+        role_embed.set_thumbnail(role_icon)
+        role_embed.add_field(name="Created", value=utils.format_dt(role.created_at))
+        role_embed.add_field(name="Colour", value=role.colour)
+        role_embed.add_field(
+            name="Separated", value="Yes" if role.mentionable else "No"
+        )
+        role_embed.add_field(
+            name="Mentionable", value="Yes" if role.mentionable else "No"
+        )
+        role_embed.add_field(
+            name="Position", value=f"{role.position}/{len(itr.guild.roles)}"
+        )
+        role_embed.add_field(
+            name="Advanced Permissions",
+            value=role_perms or "No Advanced Permissions",
+            inline=False,
+        )
+        return await itr.response.send_message(embed=role_embed)
 
 
 def setup(bot: Ezar):
