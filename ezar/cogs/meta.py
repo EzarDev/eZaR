@@ -3,7 +3,7 @@ from typing import Optional
 
 from disnake import CommandInter, Object, Permissions, __version__, version_info
 from disnake.ext.commands import Cog, Range, slash_command
-from disnake.utils import MISSING, oauth_url
+from disnake.utils import MISSING, oauth_url, format_dt
 
 from ezar import Ezar
 from ezar.backend.config import Bot
@@ -25,9 +25,10 @@ Monty Python - https://github.com/onerandomusername/monty-python
 """
 
 STATS_DESC = """
-Version: `{Bot_version}`
+Version: `{bot_version}`
 Python Version: `{python_version}`
 Disnake Version: `{dis_version} {dis_rl}`
+Online since: {bot_uptime}
 
 Servers: `{guild_count}`
 Users: `{user_count}`
@@ -55,6 +56,7 @@ class Meta(Cog):
                 python_version=python_version(),
                 dis_version=__version__,
                 dis_rl=version_info.releaselevel,
+                bot_uptime=format_dt(self.bot.start_time, style="R"),
                 guild_count=len(self.bot.guilds),
                 user_count=len(self.bot.users),
                 channel_count=len([g.channels for g in self.bot.guilds]),

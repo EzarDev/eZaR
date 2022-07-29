@@ -1,12 +1,13 @@
 from disnake import Activity, ActivityType, AllowedMentions, Intents, MemberCacheFlags
 from disnake.ext.commands import Bot
-
+from datetime import datetime
 from ezar.backend.config import Config
 
 
 class Ezar(Bot):
     def __init__(self, *, beta: bool = True):
         self.beta = beta
+        self.start_time: datetime
         super().__init__(
             "$",
             None,
@@ -22,5 +23,9 @@ class Ezar(Bot):
             ),
             activity=Activity(name="Stuff", type=ActivityType.watching),
             allowed_mentions=AllowedMentions(everyone=False, users=True, roles=False),
-            member_cache_flags=MemberCacheFlags(voice=False)
+            member_cache_flags=MemberCacheFlags(voice=False),
         )
+
+    async def login(self, token: str):
+        self.start_time = datetime.now()
+        return await super().login(token)
