@@ -1,3 +1,4 @@
+from asyncio import run
 from logging import INFO, basicConfig, getLogger
 from os import listdir
 
@@ -6,16 +7,17 @@ from disnake.ext.commands import ExtensionError
 from ezar.backend.config import Config
 from ezar.utils.ezar import Ezar
 
-bot = Ezar()
-log = getLogger(__name__)
-basicConfig(
-    format="%(asctime)s | %(name)s | %(levelname)s | %(message)s",
-    level=INFO,
-    datefmt="%Y-%m-%d - %H:%M:%S",
-)
 
+async def setup() -> None:
+    """Starts up the entire instance."""
+    bot = Ezar()
+    log = getLogger(__name__)
+    basicConfig(
+        format="%(asctime)s | %(name)s | %(levelname)s | %(message)s",
+        level=INFO,
+        datefmt="%Y-%m-%d - %H:%M:%S",
+    )
 
-def setup():
     for c_name in listdir("ezar/cogs"):
         if c_name.endswith(".py") and not c_name.startswith("_"):
             try:
@@ -27,8 +29,9 @@ def setup():
                 exit(0)
     bot.load_extension("jishaku")
 
-    bot.run(Config.main_token if not bot.beta else Config.beta_token)
+    await bot.start(Config.main_token if not bot.beta else Config.beta_token)
+    return
 
 
 if __name__ == "__main__":
-    setup()
+    run(setup())
