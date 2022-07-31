@@ -1,7 +1,13 @@
 from platform import python_version
 from typing import Optional
 
-from disnake import CommandInter, Object, Permissions, __version__, version_info
+from disnake import (
+    ApplicationCommandInteraction,
+    Object,
+    Permissions,
+    __version__,
+    version_info,
+)
 from disnake.ext.commands import Cog, Range, slash_command
 from disnake.utils import MISSING, oauth_url, format_dt
 
@@ -43,12 +49,12 @@ class Meta(Cog):
         self.bot = bot
 
     @slash_command()
-    async def ezar(self, itr: CommandInter):
+    async def ezar(self, itr: ApplicationCommandInteraction):
         """`ezar` Parent command"""
         ...
 
     @ezar.sub_command()
-    async def stats(self, itr: CommandInter):
+    async def stats(self, itr: ApplicationCommandInteraction):
         """Statistics on the current build."""
         stats_embed = Embeb(
             description=STATS_DESC.format(
@@ -66,7 +72,7 @@ class Meta(Cog):
         return await itr.response.send_message(embed=stats_embed)
 
     @ezar.sub_command()
-    async def ping(self, itr: CommandInter):
+    async def ping(self, itr: ApplicationCommandInteraction):
         """Shows how long the response time is."""
         ping_embed = Embeb(
             title="🏓 Pong!",
@@ -76,7 +82,7 @@ class Meta(Cog):
         return await itr.response.send_message(embed=ping_embed)
 
     @ezar.sub_command()
-    async def support(self, itr: CommandInter):
+    async def support(self, itr: ApplicationCommandInteraction):
         """Get an invite to the support server."""
         return await itr.response.send_message(
             f"Have any issues or queries? Join the support server: https://discord.gg/{Bot.support_inv_url}",
@@ -84,7 +90,7 @@ class Meta(Cog):
         )
 
     @ezar.sub_command()
-    async def credits(self, itr: CommandInter):
+    async def credits(self, itr: ApplicationCommandInteraction):
         """Everything/person who made eZaR possible."""
         creds_embed = Embeb(title="Credits", description=CREDITS_DESC)
         return await itr.response.send_message(embed=creds_embed)
@@ -92,7 +98,7 @@ class Meta(Cog):
     @ezar.sub_command()
     async def invite(
         self,
-        itr: CommandInter,
+        itr: ApplicationCommandInteraction,
         server_id: Optional[str] = None,
         permissions: Optional[Range[0, Permissions.all().value]] = None,
         hidden: bool = True,
