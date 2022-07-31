@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from disnake import Activity, ActivityType, AllowedMentions, Intents, MemberCacheFlags
 from disnake.ext.commands import Bot
-from datetime import datetime
+
 from ezar.backend.config import Config
 
 
