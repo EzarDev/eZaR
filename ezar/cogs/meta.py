@@ -9,7 +9,7 @@ from disnake import (
     version_info,
 )
 from disnake.ext.commands import Cog, Range, slash_command
-from disnake.utils import MISSING, oauth_url, format_dt
+from disnake.utils import MISSING, format_dt, oauth_url
 
 from ezar import Ezar
 from ezar.backend.config import Bot
