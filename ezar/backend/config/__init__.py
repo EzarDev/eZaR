@@ -60,3 +60,4 @@ class Database:
     _cluster = AsyncIOMotorClient(Config.mongo_uri)
     _db: MotorDatabase = _cluster["eZaR"]
     guild_logs: MotorCollection = _db["guild_logs"]
+    economy: MotorCollection = _db["economy"]
