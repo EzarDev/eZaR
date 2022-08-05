@@ -40,7 +40,7 @@
 3. Run the following code to start it up:
    ```sh
    poetry install
-   poetry run python3 -m ezar
+   poetry run task start
    ```
  **HOWEVER**, if you would like to use Docker, refer to the commands you can run from [this pull request](https://github.com/eZaR-Bot/eZaR/pull/4#issue-1268645480)
 

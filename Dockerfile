@@ -12,5 +12,5 @@ RUN poetry install --no-root --no-dev
 
 COPY . .
 
-ENTRYPOINT ["poetry", "run", "python3"]
-CMD ["-m", "ezar"]
+ENTRYPOINT ["poetry", "run"]
+CMD ["task", "start"]
