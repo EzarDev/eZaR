@@ -2,7 +2,7 @@ from logging import getLogger
 from typing import Union
 
 from disnake import ApplicationCommandInteraction
-from disnake.ext.commands import Cog, Context, NotOwner
+from disnake.ext.commands import Cog, Context, NotOwner, CommandNotFound
 
 from ezar import Ezar
 from ezar.backend.config import Bot
@@ -37,7 +37,7 @@ class Listeners(Cog):
     async def command_error(
         self, itr: Union[ApplicationCommandInteraction, Context], exc: Exception
     ):
-        if isinstance(exc, NotOwner):
+        if isinstance(exc, (CommandNotFound, NotOwner)):
             return
 
         desc = error_description.format(invite=Bot.support_inv_url, exc=exc)
