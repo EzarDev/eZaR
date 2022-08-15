@@ -2,7 +2,7 @@ from logging import getLogger
 from typing import Union
 
 from disnake import ApplicationCommandInteraction
-from disnake.ext.commands import Cog, Context, NotOwner, CommandNotFound
+from disnake.ext.commands import Cog, CommandNotFound, Context, NotOwner
 
 from ezar import Ezar
 from ezar.backend.config import Bot
