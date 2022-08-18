@@ -45,7 +45,8 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
         Parameters
         ----------
         user: The user to get the avatar of.
-        type: The type of avatar to get."""
+        type: The type of avatar to get.
+        """
         if user is None:
             user: Member = itr.user
 
@@ -130,7 +131,8 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
 
         Parameters
         ----------
-        user: The user to get information about."""
+        user: The user to get information about.
+        """
         user_embed = Embeb()
         if user is None:
             user: Member = itr.user
@@ -180,7 +182,8 @@ class Miscellaneous(Cog, slash_command_attrs={"dm_permissions": False}):
 
         Parameters
         ----------
-        role: The role to get information about."""
+        role: The role to get information about.
+        """
         role_embed = Embeb()
         role_icon = role.icon.url if role.icon else None
         _role_perms = role.permissions & Permissions.advanced()

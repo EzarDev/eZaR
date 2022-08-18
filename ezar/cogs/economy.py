@@ -53,7 +53,6 @@ class ProfileCreate(View):
             new_content=f"{Emojis.tick} You have created an account! Run `/eco job get` to get a job.",
         )
         self.stop()
-        return
 
     @button(label="No, I do not agree", emoji=Emojis.cross)
     async def create_disagree(self, button: Button, itr: MessageInteraction) -> None:
@@ -64,7 +63,6 @@ class ProfileCreate(View):
             )
         await disable_components(self, itr=itr)
         self.stop()
-        return
 
 
 class JobGet(View):
@@ -151,7 +149,8 @@ class Economy(Cog):
 
         Parameters
         ----------
-        user: The user to view."""
+        user: The user to view.
+        """
         if not user:
             user: Member = itr.user
 
