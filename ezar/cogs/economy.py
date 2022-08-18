@@ -6,10 +6,11 @@ from disnake import (
     InteractionMessage,
     Member,
     MessageInteraction,
+    SelectOption,
     User,
 )
 from disnake.ext.commands import Cog, slash_command
-from disnake.ui import Button, View, button
+from disnake.ui import Button, Select, View, button, select
 
 from ezar import Ezar
 from ezar.backend.config import Database, Emojis
@@ -22,7 +23,7 @@ class ProfileCreate(View):
         self.db = Database.economy
         self.author = author
         self.message: InteractionMessage
-        super().__init__(timeout=60)
+        super().__init__(timeout=30)
 
     async def on_timeout(self) -> None:
         return await disable_components(
@@ -40,6 +41,7 @@ class ProfileCreate(View):
         await self.db.insert_one(
             {
                 "_id": itr.user.id,
+                "job": None,
                 "created_at": datetime.now().timestamp(),
                 "cash": 0,
                 "bank_cash": 0,
@@ -63,6 +65,53 @@ class ProfileCreate(View):
         await disable_components(self, itr=itr)
         self.stop()
         return
+
+
+class JobGet(View):
+    options = [
+        SelectOption(
+            label="Taxi Driver",
+            value="taxi_driver",
+            emoji="🚕",
+            description="Drive people around town.",
+        ),
+        SelectOption(
+            label="Store Cashier",
+            value="store_cashier",
+            emoji="🏪",
+            description="Work at a store and help customers.",
+        ),
+    ]
+
+    def __init__(self, author: Member):
+        self.author = author
+        self.message: InteractionMessage
+        self.db = Database.economy
+        super().__init__(timeout=30)
+
+    async def on_timeout(self) -> None:
+        return await disable_components(
+            self, new_content="You took too long to respond!", message=self.message
+        )
+
+    @select(placeholder="List of Jobs", options=options)
+    async def job_list(self, select: Select, itr: MessageInteraction):
+        if itr.values[0] == "taxi_driver":
+            await self.db.update_one(
+                {"_id": itr.user.id}, {"$set": {"job": "taxi_driver"}}
+            )
+            await disable_components(
+                self, itr=itr, new_content="You are now a taxi driver!"
+            )
+            self.stop()
+        elif itr.values[0] == "store_cashier":
+            await self.db.update_one({"_id": itr.user.id}, {"$set": {"job": "cashier"}})
+            await disable_components(
+                self,
+                itr=itr,
+                new_content=f"{Emojis.tick} You are now a cashier!",
+            )
+            self.stop()
 
 
 class Economy(Cog):
@@ -133,11 +182,35 @@ class Economy(Cog):
             timestamp=datetime.fromtimestamp(check["created_at"]),
         )
         prof_embed.set_thumbnail(user.display_avatar.url)
+        prof_embed.add_field(name="Job", value=check["job"] or "Unemployed")
         prof_embed.add_field(name="Total Cash Amount", value=total)
         prof_embed.add_field(name="Cash", value=check["cash"])
         prof_embed.add_field(name="Credit", value=check["bank_cash"])
         prof_embed.set_footer(text="Account created at")
         return await itr.response.send_message(embed=prof_embed)
+
+    @eco.sub_command_group("job")
+    async def eco_job(self, itr: ApplicationCommandInteraction):
+        """Eco-Job-related commands"""
+
+    @eco_job.sub_command("get")
+    async def eco_job_get(self, itr: ApplicationCommandInteraction):
+        """Get a job and earn money."""
+        check = await self.db.find_one({"_id": itr.user.id})
+        if not check:
+            return await itr.response.send_message(
+                f"{Emojis.cross} You do not have a profile. Run `/eco profile create` to create one.",
+                ephemeral=True,
+            )
+        elif check["job"]:
+            return await itr.response.send_message(
+                f"{Emojis.cross} You already have a job.", ephemeral=True
+            )
+        view = JobGet(itr.user)
+        await itr.response.send_message(
+            "Click any of these options to get a description of the job.", view=view
+        )
+        view.message = await itr.original_message()
 
 
 def setup(bot: Ezar):
