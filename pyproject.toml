@@ -13,12 +13,12 @@ dnspython = "^2.2.1"
 disnake = {git = "https://github.com/DisnakeDev/disnake"}
 disnake-jishaku = "^2.6.5"
 disnake-ext-components = {git = "https://github.com/DisnakeCommunity/disnake-ext-components"}
+taskipy = "^1.10.2"
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
 flake8 = "^5.0.4"
 isort = "^5.10.1"
-taskipy = "^1.10.2"
 
 [tool.isort]
 profile = "black"
