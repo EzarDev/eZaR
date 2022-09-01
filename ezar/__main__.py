@@ -1,6 +1,6 @@
 from asyncio import run
 from logging import INFO, basicConfig, getLogger
-from os import listdir
+from pathlib import Path
 
 from disnake.ext.commands import ExtensionError
 
@@ -18,11 +18,12 @@ async def setup() -> None:
         datefmt="%Y-%m-%d - %H:%M:%S",
     )
 
-    for c_name in listdir("ezar/cogs"):
-        if c_name.endswith(".py") and not c_name.startswith("_"):
+    for c in Path("ezar/cogs").glob("**/*.py"):
+        if c.suffix == ".py":
             try:
-                bot.load_extension("ezar.cogs.{c}".format(c=c_name[:-3]))
-                log.info("{c} has loaded.".format(c=c_name))
+                ext = ".".join(c.parts)[:-3]
+                bot.load_extension(ext)
+                log.info("%s has loaded.", ext)
             except ExtensionError as err:
                 log.error("{n}: {e}".format(n=err.name, e=err))
                 log.info("Aborting connection.")
