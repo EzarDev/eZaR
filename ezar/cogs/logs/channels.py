@@ -5,26 +5,29 @@ from typing import TYPE_CHECKING, Any, Callable
 from disnake.abc import GuildChannel
 from disnake.ext.commands import Cog
 
-from ezar.cogs.logs import query_config
+from ezar.cogs.logs import (
+    query_config,
+    parse_update,
+    PLAIN_HANDLER,
+    UNIT_HANDLER,
+    ENUM_HANDLER,
+    NAMED_SNOWFLAKE_HANDLER,
+    INDEX_HANDLER,
+)
 from ezar.utils.embed import Embeb
 
 if TYPE_CHECKING:
-    from enum import Enum
-
     from ezar import Ezar
 
-PLAIN_HANDLER: Callable[[Any], str] = lambda p: f"`{p}`"
-ENUM_HANDLER: Callable[[Enum], str] = lambda e: f"`{e.name.replace('_', ' ').title()}`"
-UNIT_HANDLER: Callable[[str], Callable[[int], str]] = lambda u: lambda s: f"`{s}{u}`"
-TO_CHECK: dict[str, Callable[[Any], str]] = {
-    "bitrate": UNIT_HANDLER("bps"),
-    "category": lambda c: f"`{c.name}` (`{c.id}`)",
+UPDATE_HANDLERS: dict[str, Callable[[Any], str]] = {
+    "bitrate": lambda b: f"`{b // 1000}kbps`",
+    "category": NAMED_SNOWFLAKE_HANDLER,
     "default_auto_archive_duration": UNIT_HANDLER("m"),
     "name": PLAIN_HANDLER,
     "nsfw": PLAIN_HANDLER,
     "overwrites": lambda o: ", ".join(f"`{t.name}`" for t in sorted(o.keys())),
     "permissions_synced": PLAIN_HANDLER,
-    "position": lambda p: f"`{p + 1}`",
+    "position": INDEX_HANDLER,
     "rtc_region": PLAIN_HANDLER,
     "slowmode_delay": UNIT_HANDLER("s"),
     "topic": PLAIN_HANDLER,
@@ -81,27 +84,12 @@ class ChannelLogs(Cog):
         if channel := await query_config(
             bot=self.bot, guild_id=guild.id, event="guild_channel_update"
         ):
-            changes: list[str] = []
-
-            # Go through all checkable, make sure the human readables are not equal.
-            # Except to handle if that attribute is not on this type.
-            for attribute, modifier in sorted(TO_CHECK.items()):
-                try:
-                    before_change = modifier(getattr(before, attribute))
-                    after_change = modifier(getattr(after, attribute))
-                except AttributeError:
-                    continue
-                else:
-                    if before_change != after_change:
-                        changes.append(
-                            f"`{attribute}` - {before_change} -> {after_change}"
-                        )
+            changes = parse_update(handlers=UPDATE_HANDLERS, before=before, after=after)
 
             if changes:
-                changed = "\n".join(changes)
                 embed = Embeb(
                     title="Channel Edited",
-                    description=CHANNEL_EDITED.format(channel=after, changed=changed),
+                    description=CHANNEL_EDITED.format(channel=after, changed=changes),
                 )
                 await channel.send(embed=embed)
 
