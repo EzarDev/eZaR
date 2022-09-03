@@ -33,9 +33,9 @@ class Embeb(Embed):
         self.color = (
             color
             if color
-            else Colors.purple
-            if not self.success and self.color is None
             else Colors.green
-            if not self.failure and self.color is None
+            if self.success
             else Colors.red
+            if self.failure
+            else Colors.purple
         )
