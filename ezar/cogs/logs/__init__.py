@@ -36,9 +36,9 @@ LOG_TYPES: dict[str, str] = {
     "raw_message_delete": "Message Deletes",
     "raw_bulk_message_delete": "Bulk Message Deletes",
     # channels.py
-    "guild_channel_delete": "Channel Deletes",
     "guild_channel_create": "Channel Creates",
     "guild_channel_update": "Channel Edits",
+    "guild_channel_delete": "Channel Deletes",
     # threads.py
     "thread_create": "Thread Creates",
     "raw_thread_update": "Thread Edits",
@@ -57,7 +57,6 @@ LOG_TYPES: dict[str, str] = {
     "guild_role_delete": "Role Deletes",
     "guild_role_update": "Role Edits",
 }
-DEFAULT_LOG_TYPES = {k: True for k in LOG_TYPES}
 FALSE_LOG_TYPES = {k: False for k in LOG_TYPES}
 
 
@@ -129,7 +128,11 @@ class Logs(Cog):
         assert inter.guild is not None
 
         enabled = await self.db.find_one_and_delete({"_id": inter.guild.id})
-        config = enabled["config"] if enabled is not None else DEFAULT_LOG_TYPES
+        config = (
+            enabled["config"]
+            if (enabled is not None and enabled["channel"] == channel.id)
+            else FALSE_LOG_TYPES
+        )
 
         view = LogSelectionView(config)
         view.interaction = inter
