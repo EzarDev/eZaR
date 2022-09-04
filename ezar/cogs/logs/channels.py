@@ -6,13 +6,13 @@ from disnake.abc import GuildChannel
 from disnake.ext.commands import Cog
 
 from ezar.cogs.logs import (
-    query_config,
-    parse_update,
+    ENUM_HANDLER,
+    INDEX_HANDLER,
+    NAMED_SNOWFLAKE_HANDLER,
     PLAIN_HANDLER,
     UNIT_HANDLER,
-    ENUM_HANDLER,
-    NAMED_SNOWFLAKE_HANDLER,
-    INDEX_HANDLER,
+    parse_update,
+    query_config,
 )
 from ezar.utils.embed import Embeb
 
