@@ -35,6 +35,8 @@ __all__ = (
     "PLAIN_HANDLER",
     "UNIT_HANDLER",
     "ENUM_HANDLER",
+    "NAMED_SNOWFLAKE_HANDLER",
+    "INDEX_HANDLER",
 )
 
 
