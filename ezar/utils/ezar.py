@@ -18,7 +18,11 @@ class Ezar(Bot):
             sync_commands_on_unload=True,
             test_guilds=(Config.test_guilds,) if self.beta else [],
             intents=Intents(
-                message_content=True, guilds=True, members=True, messages=True
+                message_content=True,
+                guilds=True,
+                members=True,
+                messages=True,
+                emojis_and_stickers=True,
             ),
             activity=Activity(name="Stuff", type=ActivityType.watching),
             allowed_mentions=AllowedMentions(everyone=False, users=True, roles=False),
