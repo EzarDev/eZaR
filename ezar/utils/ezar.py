@@ -23,6 +23,7 @@ class Ezar(Bot):
                 members=True,
                 messages=True,
                 emojis_and_stickers=True,
+                invites=True,
             ),
             activity=Activity(name="Stuff", type=ActivityType.watching),
             allowed_mentions=AllowedMentions(everyone=False, users=True, roles=False),
