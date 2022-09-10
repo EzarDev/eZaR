@@ -16,7 +16,6 @@ if TYPE_CHECKING:
 
 
 log = getLogger(__name__)
-# @
 
 
 class InviteLogs(Cog):
