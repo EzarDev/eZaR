@@ -6,6 +6,7 @@ from disnake import (
     CmdInter,
     MessageInteraction,
     NewsChannel,
+    Permissions,
     SelectOption,
     TextChannel,
     Thread,
@@ -150,7 +151,7 @@ class Logs(Cog):
         self.db = Database.logs
 
     @slash_command(
-        dm_permission=False  # , default_member_permissions=Permissions(manage_guild=True)
+        dm_permission=False, default_member_permissions=Permissions(manage_guild=True)
     )
     async def logs(self, inter: CmdInter):
         """Logging-related commands."""
@@ -175,7 +176,7 @@ class Logs(Cog):
         view = LogSelectionView(config)
         view.interaction = inter
 
-        await inter.send("Select your preferred log types.", view=view)
+        await inter.response.send_message("Select your preferred log types.", view=view)
 
         await view.wait()
 
@@ -187,7 +188,9 @@ class Logs(Cog):
                 "config": config,
             }
         )  # type: ignore
-        await inter.send("Your selected items have been configured for this server!")
+        await inter.response.send_message(
+            "Your selected log events have been configured for this server!"
+        )
 
     @logs.sub_command()
     async def disable(self, inter: CmdInter):
@@ -195,7 +198,7 @@ class Logs(Cog):
 
         assert inter.guild is not None
         await self.db.delete_one({"_id": inter.guild.id})  # type: ignore
-        await inter.send("Logging has been disabled for this server.")
+        await inter.response.send_message("Logging has been disabled for this server.")
 
 
 def setup(bot: Ezar):

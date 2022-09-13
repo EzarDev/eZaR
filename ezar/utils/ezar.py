@@ -15,7 +15,6 @@ class Ezar(Bot):
             reload=True,
             strip_after_prefix=True,
             sync_commands=True,
-            sync_commands_on_unload=True,
             test_guilds=(Config.test_guilds,) if self.beta else [],
             intents=Intents(
                 message_content=True,
