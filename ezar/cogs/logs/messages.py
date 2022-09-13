@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from io import BytesIO
 from typing import TYPE_CHECKING
 
-from disnake import DMChannel, Message
+from disnake import DMChannel, File, Message
 from disnake.ext.commands import Cog
 
 from ezar.cogs.logs import query_config
@@ -41,6 +42,9 @@ class MessageLogs(Cog):
                 if len(after.content) > 2003
                 else after.content
             ) or "No Content"
+
+            if truncated_before == truncated_after:
+                return
 
             description += f"**Before**\n```\n{truncated_before}\n```\n"
             description += f"**After**\n```\n{truncated_after}\n```"
@@ -117,7 +121,26 @@ class MessageLogs(Cog):
 
             embed.set_author(name=username, icon_url=user_avatar)
 
-            await channel.send(embed=embed)
+            message_file = ""
+
+            for message in messages:
+                content = message.content or "No Content"
+                if message.attachments:
+                    content += "\n\tAttachments: " + ", ".join(
+                        a.url for a in message.attachments
+                    )
+                message_file += (
+                    f"{message.author} ({message.author.display_name}): {content}\n"
+                )
+
+            fp = BytesIO(message_file.encode())
+            file = File(
+                fp,
+                filename="messages.txt",
+                description="The messages that were deleted.",
+            )
+            await channel.send(embed=embed, file=file)
+            fp.close()
 
 
 def setup(bot: Ezar):
