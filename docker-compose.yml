@@ -8,3 +8,18 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    links:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://ezar:WhatAShame@mongodb:27017/eZaR
+  mongodb:
+    image: mongo:6.0
+    environment:
+      MONGO_INITDB_DATABASE_USERNAME: ezar
+      MONGO_INITDB_DATABASE_PASSWORD: WhatAShame
+      MONGO_INITDB_DATABASE: eZaR
+    expose:
+      - 27017
+    volumes:
+      - ./mongo_data:/data/db
+      - ./mongo_init.js:/docker-entrypoint-initdb.d/init.js:ro
