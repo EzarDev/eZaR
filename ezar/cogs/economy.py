@@ -211,6 +211,24 @@ class Economy(Cog):
         )
         view.message = await itr.original_message()
 
+    @eco_job.sub_command()
+    async def resign(self, itr: ApplicationCommandInteraction):
+        """Resign from your job."""
+        check = await self.db.find_one({"_id": itr.user.id})
+        if not check:
+            return await itr.response.send_message(
+                f"{Emojis.cross} You do not have a profile. Run `/eco profile create` to create one.",
+                ephemeral=True,
+            )
+        elif not check["job"]:
+            return await itr.response.send_message(
+                f"{Emojis.cross} You do not have a job.", ephemeral=True
+            )
+        await self.db.update_one({"_id": itr.user.id}, {"$set": {"job": None}})
+        return await itr.response.send_message(
+            f"{Emojis.tick} You have resigned from your job."
+        )
+
 
 def setup(bot: Ezar):
     bot.add_cog(Economy(bot))
