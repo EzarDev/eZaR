@@ -18,7 +18,7 @@ taskipy = "^1.10.3"
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"
 flake8 = "^5.0.4"
-isort = "^5.10.1"
+isort = "^5.11.4"
 
 [tool.isort]
 profile = "black"
